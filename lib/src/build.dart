@@ -54,8 +54,7 @@ class CoreBuild extends StatelessWidget {
         break;
       case OverflowType.hidden:
         widgetTree = ClipRRect(
-            borderRadius: decoration?.borderRadius as BorderRadius? ??
-                BorderRadius.circular(0.0),
+            borderRadius: decoration?.borderRadius as BorderRadius? ?? BorderRadius.circular(0.0),
             child: widgetTree);
         break;
       case OverflowType.visible:
@@ -76,7 +75,7 @@ class CoreBuild extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: gestureModel?.onTap ?? () {},
-          borderRadius: decoration?.borderRadius as BorderRadius?,
+          borderRadius: decoration?.borderRadius as BorderRadius? ?? BorderRadius.circular(0.0),
           highlightColor: styleModel?.ripple?.highlightColor,
           splashColor: styleModel?.ripple?.splashColor,
           child: widgetTree,
@@ -97,7 +96,7 @@ class CoreBuild extends StatelessWidget {
 
     if (styleModel?.backgroundBlur != null) {
       widgetTree = ClipRRect(
-        borderRadius: decoration?.borderRadius as BorderRadius?,
+        borderRadius:decoration?.borderRadius as BorderRadius? ?? BorderRadius.circular(0.0),
         child: BackdropFilter(
           filter: ImageFilter.blur(
             sigmaX: styleModel!.backgroundBlur!,
