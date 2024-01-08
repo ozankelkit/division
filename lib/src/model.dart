@@ -70,34 +70,38 @@ class BackgroundModel with ChangeNotifier {
   ///   fit: BoxFit.cover
   /// )
   /// ```
-  void image(
-      {String? url,
-      String? path,Provider
-      ImageProvider<dynamic>? imageProvider,
-      ColorFilter? colorFilter,
-      BoxFit? fit,
-      AlignmentGeometry alignment = Alignment.center,
-      ImageRepeat repeat = ImageRepeat.noRepeat}) {
-    if ((url ?? path ?? imageProvider) == null)
-      throw ('Either the [imageProvider], [url] or the [path] has to be provided');
-
-    ImageProvider<dynamic> image;
-    if (imageProvider != null)
-      image = imageProvider;
-    else if (path != null)
-      image = AssetImage(path);
-    else
-      image = NetworkImage(url!);
-
-    _image = DecorationImage(
-      image: image as ImageProvider<Object>,
-      colorFilter: colorFilter,
-      fit: fit,
-      alignment: alignment,
-      repeat: repeat,
-    );
-    notifyListeners();
+  void image({
+    String? url,
+    String? path,
+    ImageProvider<dynamic>? imageProvider,
+    ColorFilter? colorFilter,
+    BoxFit? fit,
+    AlignmentGeometry alignment = Alignment.center,
+    ImageRepeat repeat = ImageRepeat.noRepeat
+}) {
+  if (url == null && path == null && imageProvider == null) {
+    throw ('Either the [imageProvider], [url] or the [path] has to be provided');
   }
+
+  ImageProvider<dynamic> image;
+  if (imageProvider != null) {
+    image = imageProvider;
+  } else if (path != null) {
+    image = AssetImage(path);
+  } else {
+    image = NetworkImage(url!); // 'url' is non-null at this point
+  }
+
+  _image = DecorationImage(
+    image: image,
+    colorFilter: colorFilter,
+    fit: fit,
+    alignment: alignment,
+    repeat: repeat,
+  );
+  notifyListeners();
+}
+
 
   void blendMode(BlendMode blendMode) => _blendMode = blendMode;
 }
